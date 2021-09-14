@@ -1,6 +1,10 @@
 * {
     box-sizing: border-box;
-    padding: 20px;
+    padding: 10px;
+}
+
+body {
+    margin: 0 50px;
 }
 
 header {
@@ -15,15 +19,31 @@ h1 {
 
 main p {
     text-align: center;
-    width: 50%;
+    width: 40%;
     margin: 0 auto;
     font-size: 20px;
 }
 
 main div {
     text-align: center;
+    margin-top: 10px;
 }
 
 .begin-test {
-   padding: 7px;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #b70fff;
+    border: 2px solid black;
+    border-radius: 15px;
+    box-shadow: 0 5px #999;
 }
+
+.begin-test:hover {
+    background-color: #c54bfa;
+}
+
+.begin-test:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
