@@ -8,6 +8,14 @@ var questions = [
     {question: "Who",
     answers: ["dog","cat"],
     result: ["correct","wrong"]
+    },
+    {question: "Where",
+    answers: ["dog","cat"],
+    result: ["correct","wrong"]
+    },
+    {question: "Why",
+    answers: ["dog","cat"],
+    result: ["correct","wrong"]
     }
 ];
 var questionCounter = 0;
@@ -47,11 +55,11 @@ var displayResult = function(event) {
     selectedAnswer = event.target.value;
     document.querySelector(".answers-container").removeEventListener("click", displayResult);
     if (selectedAnswer === "correct") {
-        alert("Correct!");
+        console.log("Correct!");
         score++;
     }
     else {
-        alert("Incorrect.")
+        console.log("Incorrect.");
     }
     questionCounter++;
     if (questionCounter === questions.length) {
@@ -65,14 +73,14 @@ var displayResult = function(event) {
 
 var quizOver = function() {
     mainEl.innerHTML = "";
-    var scorePage = document.createElement("div");
-    scorePage.innerHTML = "<h1>All Done!</h1><p>Your final score is " + score + ".</p>";
-    scorePage.className = "score-page";
+    var scoreForm = document.createElement("div");
+    scoreForm.innerHTML = "<h1>All Done!</h1><p>Your final score is " + score + ".</p>";
+    scoreForm.className = "score-page";
 
     var enterScore = document.createElement("div");
     enterScore.innerHTML = "<form class='score-form' id='score-form'><p>Enter initials: </p><div><input type='text' name='initials' /></div><div><button type='submit' id='submit-score'>Submit</submit></div></form>";
-    scorePage.appendChild(enterScore);
-    mainEl.appendChild(scorePage);
+    scoreForm.appendChild(enterScore);
+    mainEl.appendChild(scoreForm);
     document.querySelector("#score-form").addEventListener("submit", formScoreHandler);
 };
 
@@ -88,12 +96,12 @@ var formScoreHandler = function(event) {
 
 var loadScores = function() {
     var storedScores = localStorage.getItem("high-score");
+    storedScores = JSON.parse(storedScores);
 
-    if (!highScoreList) {
+    if (!storedScores) {
         return false;
     }
 
-    storedScores = JSON.parse(storedScores);
     for (var i = 0; i < storedScores.length; i++) {
         highScoreList.push(storedScores[i]);
     }
@@ -101,7 +109,40 @@ var loadScores = function() {
 
 var showScores = function() {
     mainEl.innerHTML = "";
+    var scoreListPage = document.createElement("div");
+    scoreListPage.className = "score-list-page";
+
+    var scoreListPageHeading = document.createElement("h1");
+    scoreListPageHeading.innerHTML = ("High scores");
+
+    var scoreList = document.createElement("ul");
+    var highScoreList = orderScores();
+    for (i = 0; i < highScoreList.length; i++) {
+        var scoreEl = document.createElement("li");
+        scoreEl.innerHTML = (i + 1) + ". " + highScoreList[i].initials + " - " + highScoreList[i].score;
+
+        // add alternating styling
+        if (i%2 === 0) {
+            scoreEl.className = "primary-score";
+        }
+        else {
+            scoreEl.className = "secondary-score";
+        }
+        scoreList.appendChild(scoreEl);
+    }
+
+    scoreListPage.appendChild(scoreListPageHeading);
+    scoreListPage.appendChild(scoreList);
     
+    mainEl.appendChild(scoreListPage);
+}
+
+var orderScores = function() {
+    highScoreList.sort((a, b)=> {
+        return b.score - a.score;
+    })
+    
+    return highScoreList;
 }
 
 loadScores();
