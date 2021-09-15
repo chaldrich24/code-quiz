@@ -12,6 +12,7 @@ var questions = [
 ];
 var questionCounter = 0;
 var score = 0;
+var highScoreList = [];
 
 var askQuestion = function() {
     mainEl.innerHTML = "";
@@ -69,11 +70,41 @@ var quizOver = function() {
     scorePage.className = "score-page";
 
     var enterScore = document.createElement("div");
-    enterScore.innerHTML = "<form class='score-form'><p>Enter initials: </p><div><input type='text' /></div><div><button type='submit'>Submit</submit></div></form>";
-    
+    enterScore.innerHTML = "<form class='score-form' id='score-form'><p>Enter initials: </p><div><input type='text' name='initials' /></div><div><button type='submit' id='submit-score'>Submit</submit></div></form>";
     scorePage.appendChild(enterScore);
     mainEl.appendChild(scorePage);
+    document.querySelector("#score-form").addEventListener("submit", formScoreHandler);
+};
+
+var formScoreHandler = function(event) {
+    event.preventDefault();
+    var initialsInput = document.querySelector("input[name='initials']").value;
+    var scoreObj = {initials: initialsInput, score: score};
+
+    highScoreList.push(scoreObj);
+    localStorage.setItem("high-score", JSON.stringify(highScoreList));
+    showScores();
+};
+
+var loadScores = function() {
+    var storedScores = localStorage.getItem("high-score");
+
+    if (!highScoreList) {
+        return false;
+    }
+
+    storedScores = JSON.parse(storedScores);
+    for (var i = 0; i < storedScores.length; i++) {
+        highScoreList.push(storedScores[i]);
+    }
+};
+
+var showScores = function() {
+    mainEl.innerHTML = "";
+    
 }
 
+loadScores();
+console.log(highScoreList);
 startButtonEl.addEventListener("click", askQuestion);
 

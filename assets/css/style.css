@@ -56,27 +56,42 @@ main div {
 
 .score-page {
     padding: 0 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .score-page h1, .score-page p {
-    text-align: left;
+    text-align: center;
     margin-left: 0;
     margin-right: 0;
 }
 
 .score-page div {
     padding-left: 0;
+    padding-right: 0;
 }
 
 .score-form {
     display: flex;
     align-items: center;
-    width: 50%;
     justify-content: flex-start;
     padding: 0;
+    flex-wrap: wrap;
 }
 
-.score-form p, .score-form div {
+.score-form p {
+    flex: 1;
+    font-size: 18px;
+    flex-basis: 20%;
+}
+
+.score-form div {
     flex: 1;
     margin-top: 0;
+}
+
+.score-form input, .score-form button {
+    padding: 5px 7px;
+    margin-right: 5px;
 }
