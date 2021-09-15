@@ -4,7 +4,7 @@
 }
 
 body {
-    margin: 0 50px;
+    margin: 0 70px;
 }
 
 header {
@@ -29,7 +29,7 @@ main div {
     margin-top: 10px;
 }
 
-.begin-test {
+.begin-quiz {
     padding: 10px 20px;
     color: #fff;
     background-color: #b70fff;
@@ -38,12 +38,12 @@ main div {
     box-shadow: 0 5px #999;
 }
 
-.begin-test:hover {
+.begin-quiz:hover {
     background-color: #c54bfa;
 }
 
-.begin-test:active {
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
+.begin-quiz:active {
+    box-shadow: 0 3px #666;
+    transform: translateY(2px);
 }
 
