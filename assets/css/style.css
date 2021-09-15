@@ -47,3 +47,10 @@ main div {
     transform: translateY(2px);
 }
 
+.answer-btn {
+    display: block;
+    width: 40%;
+    margin: 0 auto 10px auto;
+    text-align: left;
+}
+
