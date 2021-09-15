@@ -1,22 +1,27 @@
 var startButtonEl = document.querySelector("#begin-btn");
 var mainEl = document.querySelector("#quiz-content");
 var headerEl = document.querySelector("header");
+var viewHighScoreEl = document.querySelector("#view-high-score");
 var questions = [
-    {question: "What",
-    answers: ["dog","cat"],
-    result: ["correct","wrong"]
+    {question: "1. Inside which HTML element do we put JavaScript code?",
+    answers: ["javascript","script","js","scripting"],
+    result: ["wrong","correct","wrong","wrong"]
     },
-    {question: "Who",
-    answers: ["dog","cat"],
-    result: ["correct","wrong"]
+    {question: "2. How do you write 'Hello World' in an alert box?",
+    answers: ["alert('Hello World')","msgBox('Hello World')","alertBox='Hello World'","alertBox('Hello World')"],
+    result: ["correct","wrong","wrong","wrong"]
     },
-    {question: "Where",
-    answers: ["dog","cat"],
-    result: ["correct","wrong"]
+    {question: "3. What do you write to display the list of an element's properties?",
+    answers: ["console.log()","consolelog()","console.dir()","console(dir)"],
+    result: ["wrong","wrong","correct","wrong"]
     },
-    {question: "Why",
-    answers: ["dog","cat"],
-    result: ["correct","wrong"]
+    {question: "4. What's the correct way to write out the variable name?",
+    answers: ["person1","PersonOne","PERSONONE","personOne"],
+    result: ["wrong","wrong","wrong","correct"]
+    },
+    {question: "5. How do you select an element from the HTML file in JS?",
+    answers: ["document.select()","document.querySelector()","window.qSelector()","document.querySelect = ()"],
+    result: ["wrong","correct","wrong","wrong"]
     }
 ];
 var time = document.querySelector("#countdown").textContent;
@@ -73,19 +78,25 @@ var displayResult = function(event) {
     selectedAnswer = event.target.value;
     document.querySelector(".answers-container").removeEventListener("click", displayResult);
     if (selectedAnswer === "correct") {
+        var resultMessage = document.createElement("div");
+        resultMessage.innerHTML = "<h2>Correct!</h2>"
+        mainEl.appendChild(resultMessage);
         console.log("Correct!");
         score++;
     }
     else {
+        var resultMessage = document.createElement("div");
+        resultMessage.innerHTML = "<h2>Incorrect!</h2>"
+        mainEl.appendChild(resultMessage);
         console.log("Incorrect.");
     }
     questionCounter++;
     if (questionCounter === questions.length) {
         console.log("Youre done");
-        quizOver();
+        setTimeout(quizOver, 1000);
     }
     else {
-        askQuestion();
+        setTimeout(askQuestion, 1000);
     }
 };
 
@@ -178,7 +189,10 @@ var clearScores = function() {
 };
 
 loadScores();
-console.log(highScoreList);
+console.log(questions);
+
+
 startButtonEl.addEventListener("click", askQuestion);
 startButtonEl.addEventListener("click", startTimer);
+viewHighScoreEl.addEventListener("click", showScores);
 
