@@ -1,5 +1,6 @@
 var startButtonEl = document.querySelector("#begin-btn");
 var mainEl = document.querySelector("#quiz-content");
+var headerEl = document.querySelector("header");
 var questions = [
     {question: "What",
     answers: ["dog","cat"],
@@ -18,9 +19,11 @@ var questions = [
     result: ["correct","wrong"]
     }
 ];
+var time = document.querySelector("#countdown").textContent;
 var questionCounter = 0;
 var score = 0;
 var highScoreList = [];
+
 
 var askQuestion = function() {
     mainEl.innerHTML = "";
@@ -29,6 +32,21 @@ var askQuestion = function() {
     questionEl.appendChild(generateAnswers());
     mainEl.appendChild(questionEl);
     document.querySelector(".answers-container").addEventListener("click", displayResult);
+};
+
+var startTimer = function() {
+    var timer = setInterval(function() {
+    time--;
+    document.querySelector("#countdown").textContent = time;
+    if (time === 0) {
+        clearInterval(timer);
+        quizOver();
+    }
+
+    if (questionCounter === questions.length) {
+        clearInterval(timer);
+    }
+    }, 1000);
 };
 
 var generateAnswers = function() {
@@ -108,6 +126,7 @@ var loadScores = function() {
 };
 
 var showScores = function() {
+    headerEl.innerHTML = "";
     mainEl.innerHTML = "";
     var scoreListPage = document.createElement("div");
     scoreListPage.className = "score-list-page";
@@ -131,11 +150,18 @@ var showScores = function() {
         scoreList.appendChild(scoreEl);
     }
 
+    var scoreButtons = document.createElement("div");
+    scoreButtons.innerHTML = "<button type='button' name='go-back'>Go Back</button><button type='button' name='clear'>Clear High Scores</button>";
+    scoreButtons.className = "score-buttons";
+
     scoreListPage.appendChild(scoreListPageHeading);
     scoreListPage.appendChild(scoreList);
-    
+    scoreListPage.appendChild(scoreButtons);
+
     mainEl.appendChild(scoreListPage);
-}
+    document.querySelector("button[name='go-back']").addEventListener("click", function() {location.reload();});
+    document.querySelector("button[name='clear']").addEventListener("click", clearScores);
+};
 
 var orderScores = function() {
     highScoreList.sort((a, b)=> {
@@ -143,9 +169,16 @@ var orderScores = function() {
     })
     
     return highScoreList;
-}
+};
+
+var clearScores = function() {
+    localStorage.clear();
+    highScoreList = []; 
+    showScores();
+};
 
 loadScores();
 console.log(highScoreList);
 startButtonEl.addEventListener("click", askQuestion);
+startButtonEl.addEventListener("click", startTimer);
 
