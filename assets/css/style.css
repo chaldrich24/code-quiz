@@ -54,3 +54,29 @@ main div {
     text-align: left;
 }
 
+.score-page {
+    padding: 0 200px;
+}
+
+.score-page h1, .score-page p {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.score-page div {
+    padding-left: 0;
+}
+
+.score-form {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+.score-form p, .score-form div {
+    flex: 1;
+    margin-top: 0;
+}

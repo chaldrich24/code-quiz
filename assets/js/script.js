@@ -11,6 +11,7 @@ var questions = [
     }
 ];
 var questionCounter = 0;
+var score = 0;
 
 var askQuestion = function() {
     mainEl.innerHTML = "";
@@ -46,13 +47,33 @@ var displayResult = function(event) {
     document.querySelector(".answers-container").removeEventListener("click", displayResult);
     if (selectedAnswer === "correct") {
         alert("Correct!");
+        score++;
     }
     else {
         alert("Incorrect.")
     }
     questionCounter++;
-    askQuestion();
+    if (questionCounter === questions.length) {
+        console.log("Youre done");
+        quizOver();
+    }
+    else {
+        askQuestion();
+    }
 };
+
+var quizOver = function() {
+    mainEl.innerHTML = "";
+    var scorePage = document.createElement("div");
+    scorePage.innerHTML = "<h1>All Done!</h1><p>Your final score is " + score + ".</p>";
+    scorePage.className = "score-page";
+
+    var enterScore = document.createElement("div");
+    enterScore.innerHTML = "<form class='score-form'><p>Enter initials: </p><div><input type='text' /></div><div><button type='submit'>Submit</submit></div></form>";
+    
+    scorePage.appendChild(enterScore);
+    mainEl.appendChild(scorePage);
+}
 
 startButtonEl.addEventListener("click", askQuestion);
 
