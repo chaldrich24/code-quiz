@@ -81,18 +81,15 @@ var displayResult = function(event) {
         var resultMessage = document.createElement("div");
         resultMessage.innerHTML = "<h2>Correct!</h2>"
         mainEl.appendChild(resultMessage);
-        console.log("Correct!");
         score++;
     }
     else {
         var resultMessage = document.createElement("div");
         resultMessage.innerHTML = "<h2>Incorrect!</h2>"
         mainEl.appendChild(resultMessage);
-        console.log("Incorrect.");
     }
     questionCounter++;
     if (questionCounter === questions.length) {
-        console.log("Youre done");
         setTimeout(quizOver, 1000);
     }
     else {
@@ -189,8 +186,6 @@ var clearScores = function() {
 };
 
 loadScores();
-console.log(questions);
-
 
 startButtonEl.addEventListener("click", askQuestion);
 startButtonEl.addEventListener("click", startTimer);
