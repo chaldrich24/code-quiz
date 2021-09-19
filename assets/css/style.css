@@ -4,7 +4,8 @@
 }
 
 body {
-    margin: 0 70px;
+    margin: 0 auto;
+    width: 60%;
 }
 
 header {
@@ -64,7 +65,8 @@ main h2 {
 }
 
 .score-page {
-    padding: 0 200px;
+    margin: 0 auto;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,6 +76,10 @@ main h2 {
     text-align: center;
     margin-left: 0;
     margin-right: 0;
+}
+
+.score-page p {
+    width: 60%;
 }
 
 .score-page div {
@@ -106,7 +112,8 @@ main h2 {
 }
 
 .score-list-page {
-    padding: 0 200px;
+    margin: 0 auto;
+    width: 60%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -146,5 +153,62 @@ main h2 {
 
 #view-high-score:hover {
     text-shadow: 0.5px 0 #b70fff;
+}
+
+@media screen and (max-width: 970px) {
+    main p {
+        width: 90%;
+    }
+
+    main h2 {
+        width: 60%;
+    }
+
+    .answer-btn {
+        width: 60%;
+    }
+
+    .score-page {
+        width: 80%;
+    }
+
+    .score-list-page {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width:651px) {
+    body {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width:400px) {
+    body {
+        width: 100%;
+    }
+    main p {
+        font-size: 16px;
+    }
+
+    .question-title {
+        font-size: 24px;
+    }
+
+    .answer-btn {
+        width: 85%;
+    }
+
+    .score-page {
+        width: 96%;
+    }
+
+    main h2 {
+        width: 90%;
+    }
+
+    .score-form p {
+        font-size: 16px;
+    }
 }
 

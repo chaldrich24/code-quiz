@@ -33,7 +33,7 @@ var highScoreList = [];
 var askQuestion = function() {
     mainEl.innerHTML = "";
     var questionEl = document.createElement("div");
-    questionEl.innerHTML = "<h1 class='main-title'>" + questions[questionCounter].question + "</h1>";
+    questionEl.innerHTML = "<h1 class='main-title question-title'>" + questions[questionCounter].question + "</h1>";
     questionEl.appendChild(generateAnswers());
     mainEl.appendChild(questionEl);
     document.querySelector(".answers-container").addEventListener("click", displayResult);
@@ -65,7 +65,7 @@ var generateAnswers = function() {
         if (currentQuestion.result[i] === "correct") {
             answerButtonEl.setAttribute("value","correct");
         }
-        else {
+        else if (currentQuestion.result[i] === "wrong") {
             answerButtonEl.setAttribute("value", "incorrect");
         }
         answerButtonEl.innerHTML = currentQuestion.answers[i];
@@ -76,18 +76,24 @@ var generateAnswers = function() {
 
 var displayResult = function(event) {
     selectedAnswer = event.target.value;
-    document.querySelector(".answers-container").removeEventListener("click", displayResult);
+
     if (selectedAnswer === "correct") {
         var resultMessage = document.createElement("div");
         resultMessage.innerHTML = "<h2>Correct!</h2>"
         mainEl.appendChild(resultMessage);
         score++;
     }
-    else {
+    else if (selectedAnswer === "incorrect") {
         var resultMessage = document.createElement("div");
         resultMessage.innerHTML = "<h2>Incorrect!</h2>"
         mainEl.appendChild(resultMessage);
     }
+
+    else {
+        return;
+    }
+
+    document.querySelector(".answers-container").removeEventListener("click", displayResult);
     questionCounter++;
     if (questionCounter === questions.length) {
         setTimeout(quizOver, 1000);
