@@ -1,3 +1,9 @@
+:root {
+    --primary-color: #b70fff;
+    --faded-primary: #c54bfa;
+    --black: #000;
+    --white: #fff;
+}
 * {
     box-sizing: border-box;
     padding: 10px;
@@ -41,15 +47,15 @@ main h2 {
 
 .begin-quiz {
     padding: 10px 20px;
-    color: #fff;
-    background-color: #b70fff;
-    border: 2px solid black;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border: 2px solid var(--black);
     border-radius: 15px;
     box-shadow: 0 5px #999;
 }
 
 .begin-quiz:hover {
-    background-color: #c54bfa;
+    background-color: var(--faded-primary);
 }
 
 .begin-quiz:active {
@@ -62,9 +68,9 @@ main h2 {
     width: 40%;
     margin: 0 auto 10px auto;
     text-align: left;
-    color: #fff;
-    background-color: #b70fff;
-    border: 2px solid black;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border: 2px solid var(--black);
 }
 
 .score-page {
@@ -115,9 +121,9 @@ main h2 {
 }
 
 .score-form button {
-    color: #fff;
-    background-color: #b70fff;
-    border: 2px solid black;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border: 2px solid var(--black);
 }
 
 .score-list-page {
@@ -138,7 +144,7 @@ main h2 {
 }
 
 .primary-score {
-    background-color: #c54bfa;
+    background-color: var(--faded-primary);
 }
 
 .score-buttons {
@@ -152,9 +158,9 @@ main h2 {
     padding: 5px 7px;
     margin-right: 5px;
     margin-bottom: 10px;
-    color: #fff;
-    background-color: #b70fff;
-    border: 2px solid black;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border: 2px solid var(--black);
 }
 
 #view-high-score {
@@ -166,7 +172,7 @@ main h2 {
 }
 
 #view-high-score:hover {
-    text-shadow: 0.5px 0 #b70fff;
+    text-shadow: 0.5px 0 var(--primary-color);
 }
 
 @media screen and (max-width: 970px) {

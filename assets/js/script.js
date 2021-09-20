@@ -2,6 +2,8 @@ var startButtonEl = document.querySelector("#begin-btn");
 var mainEl = document.querySelector("#quiz-content");
 var headerEl = document.querySelector("header");
 var viewHighScoreEl = document.querySelector("#view-high-score");
+
+// declare questions, answers, and results as objects
 var questions = [
     {question: "1. Inside which HTML element do we put JavaScript code?",
     answers: ["javascript","script","js","scripting"],
@@ -24,21 +26,27 @@ var questions = [
     result: ["wrong","correct","wrong","wrong"]
     }
 ];
+
 var time = document.querySelector("#countdown").textContent;
 var questionCounter = 0;
 var score = 0;
 var highScoreList = [];
 
-
+// function to create questions after 'start quiz' is clicked
 var askQuestion = function() {
     mainEl.innerHTML = "";
     var questionEl = document.createElement("div");
+
     questionEl.innerHTML = "<h1 class='main-title question-title'>" + questions[questionCounter].question + "</h1>";
+
+    // append return value from generateAnswers() function
     questionEl.appendChild(generateAnswers());
+
     mainEl.appendChild(questionEl);
     document.querySelector(".answers-container").addEventListener("click", displayResult);
 };
 
+// use setInterval to start an on-screen timer and end quiz when 0 or questions end
 var startTimer = function() {
     var timer = setInterval(function() {
     time--;
@@ -54,10 +62,14 @@ var startTimer = function() {
     }, 1000);
 };
 
+// create answers on page by looping through object
 var generateAnswers = function() {
     var answerContEl = document.createElement("div");
     answerContEl.className = "answers-container";
+
+    // declare current question on screen
     var currentQuestion = questions[questionCounter];
+
     for (i = 0; i < currentQuestion.answers.length; i++) {
         var answerButtonEl = document.createElement("button");
         answerButtonEl.type = "button";
@@ -74,7 +86,9 @@ var generateAnswers = function() {
     return answerContEl;
 };
 
+// function to show user if they selected the correct answer or not
 var displayResult = function(event) {
+    // get value from clicked button which reflects answer result
     selectedAnswer = event.target.value;
 
     if (selectedAnswer === "correct") {
@@ -89,12 +103,17 @@ var displayResult = function(event) {
         mainEl.appendChild(resultMessage);
     }
 
+    // allows event listener to continue if user clicks another part of event that isn't the button
     else {
         return;
     }
 
     document.querySelector(".answers-container").removeEventListener("click", displayResult);
+
+    // increase counter to move on to next question
     questionCounter++;
+
+    // end quiz when questions run out
     if (questionCounter === questions.length) {
         setTimeout(quizOver, 1000);
     }
@@ -103,6 +122,7 @@ var displayResult = function(event) {
     }
 };
 
+// function to create end game screen and allow for score submit
 var quizOver = function() {
     mainEl.innerHTML = "";
     var scoreForm = document.createElement("div");
@@ -116,6 +136,7 @@ var quizOver = function() {
     document.querySelector("#score-form").addEventListener("submit", formScoreHandler);
 };
 
+// adds score to local storage and calls showScores() function
 var formScoreHandler = function(event) {
     event.preventDefault();
     var initialsInput = document.querySelector("input[name='initials']").value;
@@ -126,6 +147,7 @@ var formScoreHandler = function(event) {
     showScores();
 };
 
+// loads scores from local storage into variable to use in code
 var loadScores = function() {
     var storedScores = localStorage.getItem("high-score");
     storedScores = JSON.parse(storedScores);
@@ -139,9 +161,11 @@ var loadScores = function() {
     }
 };
 
+// shows the list of high scores stored in local storage
 var showScores = function() {
     headerEl.innerHTML = "";
     mainEl.innerHTML = "";
+
     var scoreListPage = document.createElement("div");
     scoreListPage.className = "score-list-page";
 
@@ -149,6 +173,8 @@ var showScores = function() {
     scoreListPageHeading.innerHTML = ("High scores");
 
     var scoreList = document.createElement("ul");
+
+    // sorts scores from highest to lowest
     var highScoreList = orderScores();
     for (i = 0; i < highScoreList.length; i++) {
         var scoreEl = document.createElement("li");
@@ -173,10 +199,13 @@ var showScores = function() {
     scoreListPage.appendChild(scoreButtons);
 
     mainEl.appendChild(scoreListPage);
+
+    // adds functionality to buttons on high scores page
     document.querySelector("button[name='go-back']").addEventListener("click", function() {location.reload();});
     document.querySelector("button[name='clear']").addEventListener("click", clearScores);
 };
 
+// function to sort scores
 var orderScores = function() {
     highScoreList.sort((a, b)=> {
         return b.score - a.score;
@@ -191,8 +220,10 @@ var clearScores = function() {
     showScores();
 };
 
+// on page reload, scores are loaded from local storage
 loadScores();
 
+// add button functionality for home page
 startButtonEl.addEventListener("click", askQuestion);
 startButtonEl.addEventListener("click", startTimer);
 viewHighScoreEl.addEventListener("click", showScores);
